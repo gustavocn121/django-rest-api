@@ -1,0 +1,21 @@
+version: "3"
+services:
+  db:
+    image: mysql
+    container_name: db-container
+    environment:
+      MYSQL_ROOT_PASSWORD: senha_mysql
+    volumes:
+      - ./server/db/data:/home/db_mysql
+    restart: always
+  api:
+    build: "./api"
+    container_name: api-container
+    restart: always
+    volumes:
+      - ./server/api:/home/api
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db
+  
